@@ -1,0 +1,11 @@
+# virtualenv
+/venv/
+
+# input-output data
+/in/
+/out/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
