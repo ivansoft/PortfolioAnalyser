@@ -1,2 +1,5 @@
 # packaging
 setuptools==60.1.0
+
+# docs
+Sphinx==4.3.2
