@@ -4,6 +4,53 @@ pushd %~dp0
 
 if "%~1" == "" goto empty
 
+CALL :check_python
+if errorlevel 1 goto :end
+
+2>NUL CALL :COMMAND_%~1
+if errorlevel 1 goto :unknown
+exit /b
+
+::
+:: Aka https://docs.npmjs.com/cli/v8/using-npm/scripts
+::
+:COMMAND_install
+	pip install -U pip setuptools
+	pip install -Ur requirements-dev.txt
+	goto :end
+:COMMAND_version
+	python -V
+	pip -V
+	echo.VIRTUAL_ENV: %VIRTUAL_ENV%
+	goto :end
+:COMMAND_uninstall
+	pip list --exclude pip --exclude setuptools --format freeze > __temp.txt
+	type __temp.txt
+	pip uninstall -yr __temp.txt
+	del /f /q __temp.txt
+	goto :end
+
+
+:unknown
+echo.make: *** No rule to make target '%~1'.  Stop.
+goto :help
+
+:empty
+echo.make: *** No targets specified.  Stop.
+goto :help
+
+:help
+echo.Available commands:
+echo. install - install all requirements
+echo. version - Python / pip version numbers
+echo. uninstall - uninstall all requirements
+
+:end
+popd
+exit /b
+
+:check_python
+
 python -V >NUL 2>NUL
 if errorlevel 9009 (
 	echo.
@@ -39,38 +86,3 @@ if errorlevel 1 (
 	exit /b /1
 )
 
-CALL :COMMAND_%~1
-if errorlevel 1 goto :unknown
-exit /b
-
-:COMMAND_install
-	pip install -U pip setuptools
-	pip install -Ur requirements-dev.txt
-	goto :end
-:COMMAND_version
-	python -V
-	pip -V
-	echo.VIRTUAL_ENV: %VIRTUAL_ENV%
-	goto :end
-:COMMAND_clean
-	pip list --exclude pip --exclude setuptools --format freeze > __temp.txt
-	type __temp.txt
-	pip uninstall -yr __temp.txt
-	del /f /q __temp.txt
-	goto :end
-
-:unknown
-echo.make: *** No rule to make target '%~1'.  Stop.
-goto :help
-
-:empty
-echo.make: *** No targets specified.  Stop.
-goto :help
-
-:help
-echo.Available commands:
-echo. install - install all requirements
-echo. version - Python / pip version numbers
-
-:end
-popd
