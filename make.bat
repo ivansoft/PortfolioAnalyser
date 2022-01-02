@@ -14,6 +14,15 @@ exit /b
 ::
 :: Aka https://docs.npmjs.com/cli/v8/using-npm/scripts
 ::
+:COMMAND_start
+	echo Not implemented
+	goto :end
+:COMMAND_build
+	echo Not implemented
+	goto :end
+:COMMAND_deploy
+	echo Not implemented
+	goto :end
 :COMMAND_install
 	pip install -U pip setuptools
 	pip install -Ur requirements-dev.txt
@@ -22,6 +31,10 @@ exit /b
 	python -V
 	pip -V
 	echo VIRTUAL_ENV: %VIRTUAL_ENV%
+	goto :end
+:COMMAND_clean
+	:: clean resources
+	echo Not implemented
 	goto :end
 :COMMAND_uninstall
 	pip list --exclude pip --exclude setuptools --format freeze > __temp.txt
@@ -42,6 +55,10 @@ goto :help
 :help
 echo Available commands:
 echo  install - install all requirements
+echo  start - run in development environment
+echo  build - create bundle
+echo  deploy - deploy to server
+echo  clean - clean all build's artifacts
 echo  version - Python / pip version numbers
 echo  uninstall - uninstall all requirements
 
