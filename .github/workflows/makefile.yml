@@ -2,7 +2,7 @@ name: Makefile CI
 
 on:
   push:
-    branches: [ master, pr-github-actions ]
+    branches: [ pr-github-actions ]
   pull_request:
     branches: [ master ]
 
