@@ -42,8 +42,8 @@ if errorlevel 1 (
 	echo.
 	echo 'make.exe' is not recognized as an internal or external command,
 	echo operable program or batch file.
- 	echo Please set up MSYS_HOME environment variable to your MSYS home folder
- 	echo or pass path via command line parameter - see `make help'.
+	echo Please set up MSYS_HOME environment variable to your MSYS home folder
+	echo or pass path via command line parameter - see `make help'.
 	echo https://www.msys2.org/#installation
 	exit /b /1
 )
