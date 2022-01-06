@@ -2,9 +2,17 @@
 
 pushd %~dp0
 
-setlocal
+setlocal EnableDelayedExpansion
 
-if "%~1"=="help" goto :help
+:: Define LF to contain a linefeed character
+set ^"LF=^
+
+^" The above empty line is critical. DO NOT REMOVE
+
+:: help -help --help /help ? /?
+for /f %%A in ("help!LF!-help!LF!--help!LF!/help!LF!?!LF!/?") do (
+  if /i "%~1" equ "%%A" goto :help
+)
 if not "%~1"=="" set "PATH=%~1;%PATH%"
 
 if not defined MSYS_HOME set MSYS_HOME=c:\msys64
