@@ -1,0 +1,17 @@
+# Set update schedule for GitHub Actions
+
+# Enable Dependabot
+# https://github.com/ivansoft/PortfolioAnalyser/network/updates
+# Settings - Dependabot alerts
+# https://github.com/ivansoft/PortfolioAnalyser/settings/security_analysis
+# Security - Dependabot alerts
+# https://github.com/ivansoft/PortfolioAnalyser/security/dependabot
+
+version: 2
+updates:
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      # Check for updates to GitHub Actions every weekday
+      interval: "daily"
