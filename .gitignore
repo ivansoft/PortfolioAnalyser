@@ -22,3 +22,6 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+
+# Sphinx documentation
+docs/build/

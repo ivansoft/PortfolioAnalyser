@@ -13,9 +13,9 @@ max_line_length = 120
 [*.py]
 indent_size = 4
 
-[{Makefile, *bat}]
+[{Makefile,*.bat}]
 indent_style = tab
 max_line_length = 80
 
-[{*.md, *.rst}]
+[*.{md,rst}]
 trim_trailing_whitespace = false
