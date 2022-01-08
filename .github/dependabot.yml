@@ -1,0 +1,46 @@
+# Set update schedule for GitHub Actions
+
+# Enable Dependabot
+# https://github.com/ivansoft/PortfolioAnalyser/network/updates
+# Settings - Dependabot alerts
+# https://github.com/ivansoft/PortfolioAnalyser/settings/security_analysis
+# Security - Dependabot alerts
+# https://github.com/ivansoft/PortfolioAnalyser/security/dependabot
+
+# file must start with version: 2
+# https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates#about-the-dependabotyml-file
+version: 2
+updates:
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    # default location of `.github/workflows`
+    directory: "/"
+    schedule:
+  #   Check for updates to GitHub Actions every weekday
+      interval: "daily"
+    pull-request-branch-name:
+  #   separate sections like `dependabot-npm_and_yarn-next_js-acorn-6.4.1`
+      separator: "-"
+    reviewers:
+      - ivansoft
+
+  # Maintain dependencies for pip (v21.1.2)
+  - package-ecosystem: "pip"
+  # location of the package manifest for package manager (requirements.txt)
+    directory: "/"
+    schedule:
+      interval: "daily"
+    pull-request-branch-name:
+      separator: "-"
+  # Dependabot raises all pull requests with the dependencies label.
+  # Dependabot includes an additional label - indicates which language or ecosystem the pull request will update, for example `java` or `submodules`.
+  # `labels` will override the default labels for all pull requests
+  # labels:
+  #   - dependencies
+  #   - pip
+  # Add reviewers
+    reviewers:
+      - ivansoft
+  # Dependabot raises pull requests for the default branch by default
+  # target-branch: "develop"
