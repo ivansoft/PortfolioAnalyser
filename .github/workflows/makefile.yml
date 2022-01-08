@@ -1,9 +1,21 @@
+# workflow is a process that will run one or more jobs
+# job is a set of steps in a workflow that execute on the same runner - you can share data from one step to another
+# by default, jobs have no dependencies and run in parallel
+# runner is a server that runs your workflows - runner can run a single job at a time
+# each workflow run executes in a fresh, newly-provisioned virtual machine
+# 2,000 Actions minutes/month included - https://github.com/settings/billing
 name: Makefile CI
 
 on:
-  push:
   pull_request:
     branches: [ master ]
+  # types: [ opened, synchronize, reopened ]
+
+# Permissions granted to the GITHUB_TOKEN
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#permissions
+# https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#setting-the-permissions-of-the-github_token-for-your-repository
+# permissions: read-all
 
 jobs:
   build:
@@ -11,7 +23,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # https://docs.github.com/en/actions/creating-actions/about-custom-actions#using-tags-for-release-management
+    # Major version tag (such as v1, v2) points to the Git ref of the current release.
+    # (Lightweight Tags - https://git-scm.com/book/en/v2/Git-Basics-Tagging#_lightweight_tags)
+
+    # https://github.com/actions/checkout#usage
     - uses: actions/checkout@v2
+    # with:
+    #   repository: ${{ github.repository }}  # ivansoft/PortfolioAnalyser
+    #   token: ${{ github.token }}  # for private repos
+    #   ref: ''  # SHA of event
+    #   path: ''  # ($GITHUB_WORKSPACE/path)
+    #   ssh-key: ''  # use HTTPS (https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)
+    #   ssh-strict: true  # add `StrictHostKeyChecking=yes' and `CheckHostIP=no' to SSH command line
+    #   persist-credentials: true
+    #   clean: true  # `git clean -ffdx && git reset --hard HEAD` before fetching
+    #   fetch-depth: 1  # Number of commits to fetch (0 - all history)
+    #   lfs: false  # skip Git-LFS files
+    #   submodules: false  # (`false'|`true'|`recursive')
+
+    # https://github.com/actions/setup-python
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'  # SemVer's version range syntax - downloads from https://github.com/actions/python-versions/releases
+    #   architecture: 'x64'  # (`x64'|`x86')
+    #   cache: ''  # off by default (`pip'|`pipenv') - uses @actions/cache under the hood
+    #   cache-dependency-path: ''  # by default requirements.txt and Pipfile.lock
 
     # - name: configure
     #   run: ./configure
